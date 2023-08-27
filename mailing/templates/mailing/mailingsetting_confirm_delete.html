@@ -1,0 +1,22 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<h1 class="jumbotron-heading">Удаление рассылки из базы</h1>
+{% endblock %}
+
+{% block product %}
+<div class="row text-start">
+    <div class="col-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <form method="post" action="" class="form-floating">
+                    {% csrf_token %}
+                    <h5>Вы хотите удалить рассылку {{ object.pk}}?</h5>
+                    <button type="submit" class="btn btn-lg btn-outline-primary">Подтвердить</button>
+                    <a href="{% url 'mailing:mailingsetting_list' %}" class="btn btn-lg btn-outline-warning">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
