@@ -1,0 +1,30 @@
+<!DO{% extends 'mailing/base.html' %}
+{% block content %}
+<h1 class="jumbotron-heading">Сообщение рассылки</h1>
+{% endblock %}
+{% block product %}
+
+<div class="col-md-12 mb-4">
+  <a href="{% url 'mailing:message_create' %}" class="btn btn-sm btn-outline-primary">Добавить сообщение</a>
+</div>
+
+{% for object in object_list %}
+  <div class="col-md-4">
+    <div class="card mb-4 box-shadow" style="height: 100%;">
+      <div class="card-body">
+        <p class="card-text">{{ object }}</p>
+        <div class="d-flex flex-column">
+          <div class="btn-group mt-auto text-right">
+            <a href="{% url 'mailing:message_detail' object.pk %}"
+               class="btn btn-sm btn-outline-secondary">View</a>
+            <a href="{% url 'mailing:message_update' object.pk %}" type="button"
+               class="btn btn-sm btn-outline-secondary">Update</a>
+            <a href="{% url 'mailing:message_delete' object.pk %}" type="button"
+               class="btn btn-sm btn-outline-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}
