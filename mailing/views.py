@@ -1,8 +1,10 @@
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from mailing.forms import ClientForm, MailingSettingForm, MessageForm
 from mailing.models import Client, MailingSetting, Message
+from mailing.services import send_mailing
 
 
 class ClientListView(ListView):
@@ -63,6 +65,16 @@ class MessageCreateView(CreateView):
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message_list')
 
+    def form_valid(self, form):
+        new_mailing = form.save()
+        now = timezone.now()
+        new_mailing.created = now
+        new_mailing.save()
+
+        send_mailing(new_mailing)
+
+        return super().form_valid(form)
+
 
 class MessageDetailView(DetailView):
     model = Message
@@ -77,3 +89,4 @@ class MessageUpdateView(UpdateView):
 class MessageDeleteView(DeleteView):
     model = Message
     success_url = reverse_lazy('mailing:message_list')
+
