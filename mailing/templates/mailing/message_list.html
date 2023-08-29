@@ -15,6 +15,8 @@
         <p class="card-text">{{ object }}</p>
         <div class="d-flex flex-column">
           <div class="btn-group mt-auto text-right">
+            <a href="{% url 'mailing:mailinglog_detail' object.pk %}" type="button"
+               class="btn btn-sm btn-outline-secondary">Statistic</a>
             <a href="{% url 'mailing:message_detail' object.pk %}"
                class="btn btn-sm btn-outline-secondary">View</a>
             <a href="{% url 'mailing:message_update' object.pk %}" type="button"

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
 
     'mailing.apps.MailingConfig',
     'users.apps.UsersConfig',
@@ -139,3 +140,9 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# django-crontab
+CRONJOBS = [
+    ('*/5 * * * *', 'mailing.cron.mailing_send'),
+]
