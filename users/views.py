@@ -1,12 +1,13 @@
-from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import LoginView as BaseLoginView, PasswordResetView, PasswordResetConfirmView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse_lazy
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 
-from users.forms import UserRegisterForm
+from users.forms import UserRegisterForm, UserForm, UserFormPasswordForm, UserSetNewPasswordForm
 from users.models import User
 from users.services import register_send_mail
 from users.tokens import account_activation_token
@@ -62,3 +63,42 @@ class UserActivateView(TemplateView):
 
         return self.render_to_response({'activated': False})
 
+class UserProfileView(UpdateView):
+    """Контроллер профиля пользователя"""
+
+    model = User
+    form_class = UserForm
+    success_url = reverse_lazy('users:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class UserForgotPasswordView(SuccessMessageMixin, PasswordResetView):
+    """Контроллер для сброса пароля"""
+
+    form_class = UserFormPasswordForm
+    template_name = 'users/password_reset.html'
+    success_url = reverse_lazy('mailing:client_list')
+    success_message = 'Письмо с инструкцией по восстановлению пароля отправлена на ваш email'
+    subject_template_name = 'users/email/password_reset_subject.txt'
+    email_template_name = 'users/email/password_reset_mail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Запрос на восстановление пароля'
+        return context
+
+
+class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
+    """Контроллер создания нового пароля"""
+
+    form_class = UserSetNewPasswordForm
+    template_name = 'users/password_reset_confirm.html'
+    success_url = reverse_lazy('mailing:users')
+    success_message = 'Пароль успешно изменен. Можете авторизоваться на сайте.'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Установить новый пароль'
+        return context

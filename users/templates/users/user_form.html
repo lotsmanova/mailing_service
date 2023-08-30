@@ -1,7 +1,7 @@
 {% extends 'mailing/base.html' %}
 
 {% block content %}
-<h1 class="display-4">Вход в аккаунт</h1>
+<h1 class="display-4">Профиль</h1>
 {% endblock %}
 
 {% block product %}
@@ -11,11 +11,11 @@
         <div class="card mb-4 box-shadow">
             <div class="card-header"></div>
             <div class="card-body">
-                <form method="post" action="" class="form-floating">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Вход</button>
-                    <a href="{% url 'users:password_reset' %}" class="btn btn-lg btn-block btn-outline-warning">Восстановить пароль</a>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Сохранить</button>
+                    <a href="{% url 'users:generate_new_password' %}" class="btn btn-lg btn-block btn-outline-warning">Сгенерировать новый пароль</a>
                 </form>
             </div>
         </div>
