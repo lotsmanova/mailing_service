@@ -1,7 +1,6 @@
 from django.urls import path
 
 from mailing.apps import MailingConfig
-from mailing.services import send_mailing
 from mailing.views import ClientListView, ClientCreateView, ClientDetailView, ClientUpdateView, ClientDeleteView, \
     MailingSettingListView, MailingSettingCreateView, MailingSettingDetailView, MailingSettingUpdateView, \
     MailingSettingDeleteView, MessageListView, MessageCreateView, MessageDetailView, MessageUpdateView, \

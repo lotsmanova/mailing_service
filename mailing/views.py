@@ -4,7 +4,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from mailing.forms import ClientForm, MailingSettingForm, MessageForm
 from mailing.models import Client, MailingSetting, Message, MailingLog
-from mailing.services import send_mailing
 
 
 class ClientListView(ListView):
