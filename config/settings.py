@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'mailing.apps.MailingConfig',
     'users.apps.UsersConfig',
+    'blog.apps.BlogConfig'
 ]
 
 MIDDLEWARE = [
