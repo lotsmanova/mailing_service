@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_crontab',
+    'django.core.mail',
 
     'mailing.apps.MailingConfig',
     'users.apps.UsersConfig',
@@ -154,3 +155,8 @@ CRONJOBS = [
 AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+
+# настройки генерации токена
+ACCOUNT_ACTIVATION_DAYS = 7
+
+SITE_ID = 1

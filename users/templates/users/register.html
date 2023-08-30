@@ -1,7 +1,7 @@
 {% extends 'mailing/base.html' %}
 
 {% block content %}
-<h1 class="display-4">Вход в аккаунт</h1>
+<h1 class="display-4">Регистрация</h1>
 {% endblock %}
 
 {% block product %}
@@ -14,9 +14,7 @@
                 <form method="post" action="" class="form-floating">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Вход</button>
-                    <a href="#" class="btn btn-lg btn-block btn-outline-warning">Восстановить пароль</a>
-                    </button>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Зарегистрироваться</button>
                 </form>
             </div>
         </div>
