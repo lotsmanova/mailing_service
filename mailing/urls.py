@@ -24,5 +24,4 @@ urlpatterns = [
     path('message_update/<int:pk>/', MessageUpdateView.as_view(), name='message_update'),
     path('message_delete/<int:pk>/', MessageDeleteView.as_view(), name='message_delete'),
     path('mailinglog_detail/<int:pk>/', MailingLogDetail.as_view(), name='mailinglog_detail'),
-    # path('message_list/send_mailing/<int:setting_id>/', send_mailing, name='send_mailing'),
 ]

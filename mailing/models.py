@@ -69,6 +69,7 @@ class MailingLog(models.Model):
     status = models.CharField(max_length=150, verbose_name='статус попытки')
     server_response = models.CharField(max_length=200, verbose_name='ответ сервера', **NULLABLE)
     mailing_set = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='сообщение')
+    successful_deliveries = models.IntegerField(default=0, verbose_name='успешно доставлено')
 
 
     def __str__(self):
