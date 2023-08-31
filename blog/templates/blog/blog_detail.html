@@ -1,5 +1,5 @@
 {% extends 'mailing/base.html' %}
-
+{% load my_tags %}
 {% block content %}
 <h1 class="display-4">{{ object.head }}</h1>
 {% endblock %}
@@ -8,7 +8,9 @@
 <div class="row text-center">
     <div class="col-12">
         <div class="card">
-
+            <img class="card-img-top"
+                src="{% mediapath object.preview %}"
+                alt="card image dop">
             <div class="card-body">
                 <p class="card-text">{{ object.body }}</p>
                 <p class="card-text">{{ object.slug }}</p>
