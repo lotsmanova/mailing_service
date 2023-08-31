@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -6,89 +7,97 @@ from mailing.forms import ClientForm, MailingSettingForm, MessageForm
 from mailing.models import Client, MailingSetting, Message, MailingLog
 
 
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, ListView):
     model = Client
+    login_url = reverse_lazy('users:login')
 
 
-class ClientCreateView(CreateView):
-    model = Client
-    form_class = ClientForm
-    success_url = reverse_lazy('mailing:client_list')
-
-
-class ClientDetailView(DetailView):
-    model = Client
-
-class ClientUpdateView(UpdateView):
+class ClientCreateView(LoginRequiredMixin, CreateView):
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client_list')
+    login_url = reverse_lazy('users:login')
 
 
-class ClientDeleteView(DeleteView):
+class ClientDetailView(LoginRequiredMixin, DetailView):
+    model = Client
+    login_url = reverse_lazy('users:login')
+
+
+class ClientUpdateView(LoginRequiredMixin, UpdateView):
+    model = Client
+    form_class = ClientForm
+    success_url = reverse_lazy('mailing:client_list')
+    login_url = reverse_lazy('users:login')
+
+
+
+class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
     success_url = reverse_lazy('mailing:client_list')
+    login_url = reverse_lazy('users:login')
 
 
-class MailingSettingListView(ListView):
+class MailingSettingListView(LoginRequiredMixin, ListView):
     model = MailingSetting
+    login_url = reverse_lazy('users:login')
 
 
-class MailingSettingCreateView(CreateView):
-    model = MailingSetting
-    form_class = MailingSettingForm
-    success_url = reverse_lazy('mailing:mailingsetting_list')
-
-
-class MailingSettingDetailView(DetailView):
-    model = MailingSetting
-
-
-class MailingSettingUpdateView(UpdateView):
+class MailingSettingCreateView(LoginRequiredMixin, CreateView):
     model = MailingSetting
     form_class = MailingSettingForm
     success_url = reverse_lazy('mailing:mailingsetting_list')
+    login_url = reverse_lazy('users:login')
 
 
-class MailingSettingDeleteView(DeleteView):
+class MailingSettingDetailView(LoginRequiredMixin, DetailView):
+    model = MailingSetting
+    login_url = reverse_lazy('users:login')
+
+
+class MailingSettingUpdateView(LoginRequiredMixin, UpdateView):
+    model = MailingSetting
+    form_class = MailingSettingForm
+    success_url = reverse_lazy('mailing:mailingsetting_list')
+    login_url = reverse_lazy('users:login')
+
+
+class MailingSettingDeleteView(LoginRequiredMixin, DeleteView):
     model = MailingSetting
     success_url = reverse_lazy('mailing:mailingsetting_list')
+    login_url = reverse_lazy('users:login')
 
 
-class MessageListView(ListView):
+class MessageListView(LoginRequiredMixin, ListView):
     model = Message
+    login_url = reverse_lazy('users:login')
 
 
-class MessageCreateView(CreateView):
-    model = Message
-    form_class = MessageForm
-    success_url = reverse_lazy('mailing:message_list')
-
-    # def form_valid(self, form):
-    #     new_mailing = form.save()
-    #     now = timezone.now()
-    #     new_mailing.created = now
-    #     new_mailing.save()
-    #
-    #     send_mailing(new_mailing)
-    #
-    #     return super().form_valid(form)
-
-
-class MessageDetailView(DetailView):
-    model = Message
-
-
-class MessageUpdateView(UpdateView):
+class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message_list')
+    login_url = reverse_lazy('users:login')
 
 
-class MessageDeleteView(DeleteView):
+class MessageDetailView(LoginRequiredMixin, DetailView):
+    model = Message
+    login_url = reverse_lazy('users:login')
+
+
+class MessageUpdateView(LoginRequiredMixin, UpdateView):
+    model = Message
+    form_class = MessageForm
+    success_url = reverse_lazy('mailing:message_list')
+    login_url = reverse_lazy('users:login')
+
+
+class MessageDeleteView(LoginRequiredMixin, DeleteView):
     model = Message
     success_url = reverse_lazy('mailing:message_list')
+    login_url = reverse_lazy('users:login')
 
 
-class MailingLogDetail(DetailView):
+class MailingLogDetail(LoginRequiredMixin, DetailView):
     model = MailingLog
+    login_url = reverse_lazy('users:login')

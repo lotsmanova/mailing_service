@@ -149,7 +149,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # django-crontab
 CRONJOBS = [
-    ('*/1 * * * *', 'mailing.cron.mailing_send'),
+    ('*/5 * * * *', 'mailing.cron.mailing_send'),
 ]
 
 # настройки пользователей
