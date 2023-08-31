@@ -1,13 +1,14 @@
+from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
-
+from datetime import datetime
 from mailing.models import MailingSetting, MailingLog
 
 def mailing_send():
     now = timezone.now()
-    settings = MailingSetting.objects.filter(status__in=['created', 'started'])
+    mailing_settings = MailingSetting.objects.filter(status__in=['created', 'started'])
 
-    for mailing in settings:
+    for mailing in mailing_settings:
         clients = mailing.clients.all()
 
         if mailing.time_start <= now <= mailing.time_end:
@@ -17,18 +18,22 @@ def mailing_send():
 
             for client in clients:
                 try:
+
+                    mailing_message = mailing.message_set.first()
+
                     send_mail(
-                        mailing.message_subject,
-                        mailing.text_message,
-                        settings.EMAIL_HOST_USER,
-                        [client.email],
-                        False,
+                        subject=mailing_message.message_subject,
+                        message=mailing_message.text_message,
+                        from_email=settings.EMAIL_HOST_USER,
+                        recipient_list=[client.email],
+                        fail_silently=False,
                     )
 
                     mailing_log = MailingLog.objects.create(
                         last_attempt=timezone.now(),
                         status='Отправлено',
-                        mailing_set=mailing,
+                        mailing_set=mailing_message,
+                        successful_deliveries=1,
                     )
                     mailing_log.save()
 
@@ -38,7 +43,7 @@ def mailing_send():
                         last_attempt=timezone.now(),
                         status='Ошибка отправки',
                         server_response=str(e),
-                        mailing_set=mailing,
+                        mailing_set=mailing_message,
                     )
                     mailing_log.save()
 
