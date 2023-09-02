@@ -159,5 +159,4 @@ LOGIN_REDIRECT_URL = '/'
 
 # настройки генерации токена
 ACCOUNT_ACTIVATION_DAYS = 7
-
 SITE_ID = 1

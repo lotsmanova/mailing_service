@@ -13,18 +13,24 @@ class StyleFormMixin:
 
 
 class ClientForm(StyleFormMixin, forms.ModelForm):
+    """Форма для добавления клиента"""
+
     class Meta:
         model = Client
         fields = '__all__'
 
 
 class MailingSettingForm(StyleFormMixin, forms.ModelForm):
+    """Форма для добавления настроек рассылки"""
+
     class Meta:
         model = MailingSetting
         fields = '__all__'
 
 
 class MessageForm(StyleFormMixin, forms.ModelForm):
+    """Форма для добавления сообщения рассылки"""
+
     class Meta:
         model = Message
         exclude = ('created',)

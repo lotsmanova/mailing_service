@@ -10,6 +10,8 @@ from django.utils.http import urlsafe_base64_encode
 from users.tokens import account_activation_token
 
 def register_send_mail(new_user, current_site):
+    """Функция для активации аккаунта пользователя"""
+
     mail_subject = 'Активация аккаунта'
     message = render_to_string('users/activation_email.html', {
         'user': new_user,

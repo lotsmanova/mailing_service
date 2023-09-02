@@ -8,11 +8,15 @@ from mailing.models import Client, MailingSetting, Message, MailingLog
 
 
 class ClientListView(LoginRequiredMixin, ListView):
+    """Контроллер списка клиентов"""
+
     model = Client
     login_url = reverse_lazy('users:login')
 
 
 class ClientCreateView(LoginRequiredMixin, CreateView):
+    """Контроллер создания клиентов"""
+
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client_list')
@@ -20,11 +24,15 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
 
 
 class ClientDetailView(LoginRequiredMixin, DetailView):
+    """Контроллер просмотра клиента"""
+
     model = Client
     login_url = reverse_lazy('users:login')
 
 
 class ClientUpdateView(LoginRequiredMixin, UpdateView):
+    """Контроллер изменения клиента"""
+
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client_list')
@@ -33,17 +41,23 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
+    """Контроллер удаления клиента"""
+
     model = Client
     success_url = reverse_lazy('mailing:client_list')
     login_url = reverse_lazy('users:login')
 
 
 class MailingSettingListView(LoginRequiredMixin, ListView):
+    """Контроллер списка настроек рассылки"""
+
     model = MailingSetting
     login_url = reverse_lazy('users:login')
 
 
 class MailingSettingCreateView(LoginRequiredMixin, CreateView):
+    """Контроллер создания настроек рассылки"""
+
     model = MailingSetting
     form_class = MailingSettingForm
     success_url = reverse_lazy('mailing:mailingsetting_list')
@@ -51,11 +65,15 @@ class MailingSettingCreateView(LoginRequiredMixin, CreateView):
 
 
 class MailingSettingDetailView(LoginRequiredMixin, DetailView):
+    """Контроллер просмотра настроек рассылки"""
+
     model = MailingSetting
     login_url = reverse_lazy('users:login')
 
 
 class MailingSettingUpdateView(LoginRequiredMixin, UpdateView):
+    """Контроллер изменения настроек рассылки"""
+
     model = MailingSetting
     form_class = MailingSettingForm
     success_url = reverse_lazy('mailing:mailingsetting_list')
@@ -63,12 +81,16 @@ class MailingSettingUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class MailingSettingDeleteView(LoginRequiredMixin, DeleteView):
+    """Контроллер удаления настроек рассылки"""
+
     model = MailingSetting
     success_url = reverse_lazy('mailing:mailingsetting_list')
     login_url = reverse_lazy('users:login')
 
 
 class MessageListView(LoginRequiredMixin, ListView):
+    """Контроллер списка сообщений рассылки"""
+
     model = Message
     login_url = reverse_lazy('users:login')
     context_object_name = 'messages'
@@ -84,6 +106,8 @@ class MessageListView(LoginRequiredMixin, ListView):
 
 
 class MessageCreateView(LoginRequiredMixin, CreateView):
+    """Контроллер создания сообщений рассылки"""
+
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message_list')
@@ -91,11 +115,15 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
 
 
 class MessageDetailView(LoginRequiredMixin, DetailView):
+    """Контроллер просмотра сообщений рассылки"""
+
     model = Message
     login_url = reverse_lazy('users:login')
 
 
 class MessageUpdateView(LoginRequiredMixin, UpdateView):
+    """Контроллер изменения сообщений рассылки"""
+
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message_list')
@@ -103,11 +131,15 @@ class MessageUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class MessageDeleteView(LoginRequiredMixin, DeleteView):
+    """Контроллер удаления сообщений рассылки"""
+
     model = Message
     success_url = reverse_lazy('mailing:message_list')
     login_url = reverse_lazy('users:login')
 
 
 class MailingLogDetail(LoginRequiredMixin, DetailView):
+    """Контроллер просмотра логов рассылки"""
+
     model = MailingLog
     login_url = reverse_lazy('users:login')

@@ -4,6 +4,8 @@ from django.db import models
 NULLABLE = {'blank': True, 'null': True}
 
 class Client(models.Model):
+    """Модель клиента"""
+
     email = models.EmailField(max_length=150, verbose_name='почта')
     first_name = models.CharField(max_length=100, verbose_name='имя')
     last_name = models.CharField(max_length=150, verbose_name='фамилия')
@@ -20,6 +22,8 @@ class Client(models.Model):
 
 
 class MailingSetting(models.Model):
+    """Модель настройки"""
+
     FREQUENCY_CHOICES = (
         ('daily', 'Раз в день'),
         ('weekly', 'Раз в неделю'),
@@ -49,6 +53,8 @@ class MailingSetting(models.Model):
 
 
 class Message(models.Model):
+    """Модель сообщения"""
+
     created = models.DateTimeField(verbose_name='отправка', **NULLABLE)
     message_subject = models.CharField(max_length=200, verbose_name='тема сообщения')
     text_message = models.TextField(verbose_name='тело сообщения')
@@ -65,6 +71,8 @@ class Message(models.Model):
 
 
 class MailingLog(models.Model):
+    """Модель логов"""
+
     last_attempt = models.DateTimeField(verbose_name='дата и время')
     status = models.CharField(max_length=150, verbose_name='статус попытки')
     server_response = models.CharField(max_length=200, verbose_name='ответ сервера', **NULLABLE)

@@ -5,6 +5,8 @@ from mailing.models import NULLABLE
 
 
 class User(AbstractUser):
+    """Форма для добавления пользователя"""
+
     username = None
 
     email = models.EmailField(verbose_name='email', unique=True)
