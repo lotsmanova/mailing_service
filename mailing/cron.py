@@ -19,8 +19,8 @@ def mailing_send():
                 mailing.save()
 
             mailing_message = mailing.message_set.first()
-            # log_mailing = mailing_message.mailinglog_set.first()
-            log_mailing = MailingLog.objects.filter(mailing_set=mailing_message).first()
+            log_mailing = mailing_message.mailinglog_set.first()
+            # log_mailing = MailingLog.objects.filter(mailing_set=mailing_message).first()
 
             if (log_mailing is None or (mailing.frequency == 'daily' and (now - log_mailing.last_attempt) > timedelta(hours=24))
                     or (mailing.frequency == 'weekly' and (now - log_mailing.last_attempt) > timedelta(weeks=1))

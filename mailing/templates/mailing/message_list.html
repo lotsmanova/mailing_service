@@ -15,9 +15,11 @@
         <p class="card-text">{{ message }}</p>
         <div class="d-flex flex-column">
           <div class="btn-group mt-auto text-right">
-            {% if mailinglog.mailing_set == message %}
-              <a href="{% url 'mailing:mailinglog_detail' mailinglog.pk %}" type="button"
-                 class="btn btn-sm btn-outline-secondary">Statistic</a>
+            {% if mailinglog %}
+              {% if mailinglog.mailing_set == message %}
+                <a href="{% url 'mailing:mailinglog_detail' mailinglog.pk %}" type="button"
+                   class="btn btn-sm btn-outline-secondary">Statistic</a>
+              {% endif %}
             {% endif %}
             <a href="{% url 'mailing:message_detail' message.pk %}"
                class="btn btn-sm btn-outline-secondary">View</a>

@@ -75,8 +75,11 @@ class MessageListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        latest_mailinglog = MailingLog.objects.latest('last_attempt')
-        context['mailinglog'] = latest_mailinglog
+        try:
+            latest_mailinglog = MailingLog.objects.latest('last_attempt')
+            context['mailinglog'] = latest_mailinglog
+        except MailingLog.DoesNotExist:
+            context['mailinglog'] = None
         return context
 
 
