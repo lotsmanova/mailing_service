@@ -71,6 +71,13 @@ class MailingSettingDeleteView(LoginRequiredMixin, DeleteView):
 class MessageListView(LoginRequiredMixin, ListView):
     model = Message
     login_url = reverse_lazy('users:login')
+    context_object_name = 'messages'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        latest_mailinglog = MailingLog.objects.latest('last_attempt')
+        context['mailinglog'] = latest_mailinglog
+        return context
 
 
 class MessageCreateView(LoginRequiredMixin, CreateView):
