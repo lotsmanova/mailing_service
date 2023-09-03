@@ -30,9 +30,12 @@ class HomeTemplateView(TemplateView):
         context_data['total_unique_client'] = total_unique_client
 
         # 3 случайные записи из блога
-        blog_write = sample(list(Blog.objects.all()), 3)
-        context_data['blog_write'] = blog_write
-
+        blog = Blog.objects.all()
+        if blog:
+            blog_write = sample(list(blog), 3)
+            context_data['blog_write'] = blog_write
+        else:
+            context_data['blog_write'] = None
 
         return context_data
 
