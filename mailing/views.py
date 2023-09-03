@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.utils import timezone
+from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from mailing.forms import ClientForm, MailingSettingForm, MessageForm
@@ -13,6 +13,9 @@ class ClientListView(LoginRequiredMixin, ListView):
     model = Client
     login_url = reverse_lazy('users:login')
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
 
 class ClientCreateView(LoginRequiredMixin, CreateView):
     """Контроллер создания клиентов"""
@@ -21,6 +24,13 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client_list')
     login_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.user = self.request.user
+        self.object.save()
+
+        return super().form_valid(form)
 
 
 class ClientDetailView(LoginRequiredMixin, DetailView):
@@ -54,6 +64,9 @@ class MailingSettingListView(LoginRequiredMixin, ListView):
     model = MailingSetting
     login_url = reverse_lazy('users:login')
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
 
 class MailingSettingCreateView(LoginRequiredMixin, CreateView):
     """Контроллер создания настроек рассылки"""
@@ -62,6 +75,13 @@ class MailingSettingCreateView(LoginRequiredMixin, CreateView):
     form_class = MailingSettingForm
     success_url = reverse_lazy('mailing:mailingsetting_list')
     login_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.user = self.request.user
+        self.object.save()
+
+        return super().form_valid(form)
 
 
 class MailingSettingDetailView(LoginRequiredMixin, DetailView):
@@ -95,14 +115,8 @@ class MessageListView(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('users:login')
     context_object_name = 'messages'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            latest_mailinglog = MailingLog.objects.latest('last_attempt')
-            context['mailinglog'] = latest_mailinglog
-        except MailingLog.DoesNotExist:
-            context['mailinglog'] = None
-        return context
+    def get_queryset(self):
+        return super().get_queryset().filter(settings__user=self.request.user)
 
 
 class MessageCreateView(LoginRequiredMixin, CreateView):
@@ -112,6 +126,13 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message_list')
     login_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.settings = MailingSetting.objects.get(user=self.request.user)
+        self.object.save()
+
+        return super().form_valid(form)
 
 
 class MessageDetailView(LoginRequiredMixin, DetailView):

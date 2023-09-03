@@ -17,7 +17,7 @@ class ClientForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Client
-        fields = '__all__'
+        exclude = ('user',)
 
 
 class MailingSettingForm(StyleFormMixin, forms.ModelForm):
@@ -25,7 +25,7 @@ class MailingSettingForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = MailingSetting
-        fields = '__all__'
+        exclude = ('user',)
 
 
 class MessageForm(StyleFormMixin, forms.ModelForm):

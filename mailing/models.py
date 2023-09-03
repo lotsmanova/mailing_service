@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -10,6 +11,7 @@ class Client(models.Model):
     first_name = models.CharField(max_length=100, verbose_name='имя')
     last_name = models.CharField(max_length=150, verbose_name='фамилия')
     comments = models.TextField(verbose_name='комментарий', **NULLABLE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='пользователь', **NULLABLE)
 
 
     def __str__(self):
@@ -41,6 +43,9 @@ class MailingSetting(models.Model):
     frequency = models.CharField(max_length=50, choices=FREQUENCY_CHOICES, verbose_name='период рассылки', default='Раз в месяц')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, verbose_name='статус рассылки', default='Создана')
     clients = models.ManyToManyField(Client, verbose_name='клиенты')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='пользователь',
+                             **NULLABLE)
+
 
 
     def __str__(self):
