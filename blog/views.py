@@ -4,6 +4,7 @@ from pytils.templatetags.pytils_translit import slugify
 
 from blog.forms import BlogForm
 from blog.models import Blog
+from blog.services import get_blog_list_cache
 
 
 class BlogCreateView(CreateView):
@@ -30,6 +31,13 @@ class BlogListView(ListView):
         queryset = super().get_queryset(*args, **kwargs)
         queryset = queryset.filter(is_public=True)
         return queryset
+
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+
+        context_data['subjects'] = get_blog_list_cache()
+        return context_data
 
 
 class BlogDetailView(DetailView):

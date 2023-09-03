@@ -160,3 +160,14 @@ LOGIN_REDIRECT_URL = '/'
 # настройки генерации токена
 ACCOUNT_ACTIVATION_DAYS = 7
 SITE_ID = 1
+
+# кэширование
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') == '1'
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv('CACHES_LOCATION'),
+        }
+    }
