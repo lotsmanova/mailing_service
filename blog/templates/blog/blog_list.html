@@ -6,7 +6,9 @@
 
 {% block product %}
     <div class="col-12 md-5">
-        <a class="btn btn-outline-primary" href="{% url 'blog:blog_create' %}">Добавить запись</a>
+        {% if perms.blog.blog_create %}
+            <a class="btn btn-outline-primary" href="{% url 'blog:blog_create' %}">Добавить запись</a>
+        {% endif %}
     </div>
     {% for object in object_list %}
         <div class="col-4 mt-4">
@@ -17,10 +19,14 @@
                         <div class="btn-group">
                             <a href="{% url 'blog:blog_detail' object.pk %}"
                                class="btn btn-sm btn-outline-secondary">View</a>
-                            <a href="{% url 'blog:blog_update' object.pk %}" type="button"
-                               class="btn btn-sm btn-outline-secondary">Update</a>
-                            <a href="{% url 'blog:blog_delete' object.pk %}" type="button"
-                               class="btn btn-sm btn-outline-danger">Delete</a>
+                            {% if perms.blog.blog_update %}
+                                <a href="{% url 'blog:blog_update' object.pk %}" type="button"
+                                   class="btn btn-sm btn-outline-secondary">Update</a>
+                            {% endif %}
+                            {% if perms.blog.blog_delete %}
+                                <a href="{% url 'blog:blog_delete' object.pk %}" type="button"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
