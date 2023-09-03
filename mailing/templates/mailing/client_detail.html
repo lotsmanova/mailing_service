@@ -1,0 +1,23 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<h1 class="jumbotron-heading">Просмотр клиента</h1>
+{% endblock %}
+{% block product %}
+<div class="row text-start">
+    <div class="col-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ object.first_name}} {{ object.last_name }}</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Email: {{ object.email}}</p>
+                <p class="card-text">
+                    {% if object.comments %}
+                        Комментарий: {{object.comments}}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

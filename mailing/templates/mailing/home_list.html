@@ -1,0 +1,38 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<h1 class="jumbotron-heading">Главная страница</h1>
+{% endblock %}
+
+{% block product %}
+<div class="row text-start">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal"></h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Общее количество рассылок: {{ total_mailings }}</p>
+                <p class="card-text">Количество активных рассылок: {{ total_active_mailing }}</p>
+                <p class="card-text">Количество уникальных клиентов: {{ total_unique_client }}</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row text-center">
+    {% for object in blog_write %}
+        <div class="col-4">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ object.head }}</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ object.body }}</p>
+                    <p class="card-text">Количество просмотров: {{ object.count_views }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

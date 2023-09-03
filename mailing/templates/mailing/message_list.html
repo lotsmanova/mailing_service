@@ -1,0 +1,36 @@
+<!DO{% extends 'mailing/base.html' %}
+{% block content %}
+<h1 class="jumbotron-heading">Сообщение рассылки</h1>
+{% endblock %}
+{% block product %}
+
+<div class="col-md-12 mb-4">
+  <a href="{% url 'mailing:message_create' %}" class="btn btn-sm btn-outline-primary">Создать сообщение</a>
+</div>
+
+{% for message in messages %}
+  <div class="col-md-4">
+    <div class="card mb-4 box-shadow">
+      <div class="card-body">
+        <p class="card-text">{{ message }}</p>
+        <div class="d-flex flex-column">
+          <div class="btn-group mt-auto text-right">
+            {% if mailinglog %}
+              {% if mailinglog.mailing_set == message %}
+                <a href="{% url 'mailing:mailinglog_detail' mailinglog.pk %}" type="button"
+                   class="btn btn-sm btn-outline-secondary">Statistic</a>
+              {% endif %}
+            {% endif %}
+            <a href="{% url 'mailing:message_detail' message.pk %}"
+               class="btn btn-sm btn-outline-secondary">View</a>
+            <a href="{% url 'mailing:message_update' message.pk %}" type="button"
+               class="btn btn-sm btn-outline-secondary">Update</a>
+            <a href="{% url 'mailing:message_delete' message.pk %}" type="button"
+               class="btn btn-sm btn-outline-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}

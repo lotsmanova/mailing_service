@@ -1,0 +1,26 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<h1 class="jumbotron-heading">Статистика рассылки</h1>
+{% endblock %}
+
+{% block product %}
+<div class="row text-start">
+    <div class="col-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Рассылка "{{ object.mailing_set.message_subject }}"</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Дата и время последней попытки: {{ object.last_attempt }}</p>
+                <p class="card-text">Статус попытки: {{ object.status }}</p>
+                {% if object.server_response %}:
+                    <p class="card-text">Ответ сервера: {{ object.server_response }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

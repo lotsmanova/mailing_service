@@ -1,0 +1,20 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<h1 class="jumbotron-heading">Сообщение рассылки</h1>
+{% endblock %}
+
+{% block product %}
+<div class="row text-start">
+    <div class="col-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Сообщение {{ object.pk }}</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Тема: {{ object.message_subject }}</p>
+                <p class="card-text">Сообщение: {{ object.text_message }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
