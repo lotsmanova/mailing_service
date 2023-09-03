@@ -10,27 +10,29 @@
             <a class="btn btn-outline-primary" href="{% url 'blog:blog_create' %}">Добавить запись</a>
         {% endif %}
     </div>
-    {% for object in object_list %}
-        <div class="col-4 mt-4">
-            <div class="card mb-4 box-shadow">
-                <div class="card-body">
-                    <p class="card-text">{{ object.head }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="{% url 'blog:blog_detail' object.pk %}"
-                               class="btn btn-sm btn-outline-secondary">View</a>
-                            {% if perms.blog.blog_update %}
-                                <a href="{% url 'blog:blog_update' object.pk %}" type="button"
-                                   class="btn btn-sm btn-outline-secondary">Update</a>
-                            {% endif %}
-                            {% if perms.blog.blog_delete %}
-                                <a href="{% url 'blog:blog_delete' object.pk %}" type="button"
-                                   class="btn btn-sm btn-outline-danger">Delete</a>
-                            {% endif %}
+    <div class="row text-center">
+        {% for object in object_list %}
+            <div class="col-4 mt-4">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <p class="card-text">{{ object.head }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'blog:blog_detail' object.pk %}"
+                                   class="btn btn-sm btn-outline-secondary">View</a>
+                                {% if perms.blog.blog_update %}
+                                    <a href="{% url 'blog:blog_update' object.pk %}" type="button"
+                                       class="btn btn-sm btn-outline-secondary">Update</a>
+                                {% endif %}
+                                {% if perms.blog.blog_delete %}
+                                    <a href="{% url 'blog:blog_delete' object.pk %}" type="button"
+                                       class="btn btn-sm btn-outline-danger">Delete</a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}

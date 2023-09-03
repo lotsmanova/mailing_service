@@ -1,10 +1,40 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from django.contrib.auth.models import User
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from random import sample
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+
+from blog.models import Blog
 from mailing.forms import ClientForm, MailingSettingForm, MessageForm
 from mailing.models import Client, MailingSetting, Message, MailingLog
+
+class HomeTemplateView(TemplateView):
+    """Контроллер домашней страницы"""
+
+    template_name = 'mailing/home_list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+
+        # Количество рассылок всего
+        total_mailings = MailingSetting.objects.count()
+        context_data['total_mailings'] = total_mailings
+
+        # Количество активных рассылок
+        total_active_mailing = MailingSetting.objects.filter(status__in=['created', 'started']).count()
+        context_data['total_active_mailing'] = total_active_mailing
+
+        # Количество уникальных клиентов
+        total_unique_client = Client.objects.filter(mailingsetting__isnull=False).distinct().count()
+        context_data['total_unique_client'] = total_unique_client
+
+        # 3 случайные записи из блога
+        blog_write = sample(list(Blog.objects.all()), 3)
+        context_data['blog_write'] = blog_write
+
+
+        return context_data
 
 
 class ClientListView(LoginRequiredMixin, ListView):

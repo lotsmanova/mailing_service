@@ -65,3 +65,5 @@ class BlogDeleteView(DeleteView):
     """Контроллер удаления"""
     model = Blog
     success_url = reverse_lazy('blog:blog_list')
+
+
