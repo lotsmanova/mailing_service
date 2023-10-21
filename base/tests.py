@@ -1,7 +1,6 @@
-from django.test import TestCase
-from django.test import Client
+from django.test import TestCase, Client
 from users.models import User
-from mailing.models import Client as Client_model
+
 
 
 class BaseTestCase(TestCase):
@@ -19,13 +18,6 @@ class BaseTestCase(TestCase):
         self.user.save()
 
         self.client.force_login(self.user)
-
-        self.client_model = Client_model.objects.create(
-            email='test2@mail.ru',
-            first_name='Test2',
-            last_name='Test2',
-            user=self.user
-        )
 
     def test_authorized(self):
         self.assertTrue(self.user.is_authenticated)

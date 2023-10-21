@@ -63,6 +63,7 @@ class UserActivateView(TemplateView):
 
         return self.render_to_response({'activated': False})
 
+
 class UserProfileView(UpdateView):
     """Контроллер профиля пользователя"""
 
