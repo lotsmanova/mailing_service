@@ -12,7 +12,7 @@ class BaseTestCase(TestCase):
         # Создаем неавторизованный клиент
         self.client = Client()
         # Создаем пользователя
-        self.user = User.objects.create(email=self.email)
+        self.user = User.objects.create(email=self.email, is_active=True)
 
         self.user.set_password(self.password)
         self.user.save()
