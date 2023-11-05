@@ -33,8 +33,7 @@ class MailingTestCase(BaseTestCase):
         self.mailing_log = MailingLog.objects.create(
             last_attempt='2023-10-10T00:00:00',
             status='Test',
-            mailing_set=self.message,
-            successful_deliveries=1
+            mailing_set=self.message
         )
 
     def test_create_client(self):
