@@ -9,3 +9,4 @@ pytils
 redis
 sqlparse
 typing_extensions
+coverage
